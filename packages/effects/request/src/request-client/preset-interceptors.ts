@@ -155,7 +155,7 @@ export const errorMessageResponseInterceptor = (
           break;
         }
         default: {
-          errorMessage = $t('ui.fallback.http.internalServerError');
+          errorMessage = error?.response?.data?.details ?? $t('ui.fallback.http.internalServerError');
         }
       }
       makeErrorMessage?.(errorMessage, error);
