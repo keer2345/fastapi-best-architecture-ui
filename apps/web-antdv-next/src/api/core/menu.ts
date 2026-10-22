@@ -4,8 +4,11 @@ import { $t } from '@vben/locales';
 
 import { requestClient } from '#/api/request';
 
+// import type { ID } from '#/types';
+
 export interface SysMenuResult {
   id: number;
+  // id: ID;
   title: string;
   name: string;
   path: string;
