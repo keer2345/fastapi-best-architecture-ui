@@ -1,9 +1,14 @@
-import { requestClient } from './request';
+import { requestClient } from "./request";
+
+import type { ID } from "#/types";
+import { API_PATH } from "./api-path";
+
+const basePath = API_PATH.dept;
 
 export interface SysDeptResult {
-  id: number;
+  id: ID;
   name: string;
-  parent_id: number;
+  parent_id: ID;
   sort: number;
   leader?: string;
   phone?: string;
@@ -18,7 +23,7 @@ export interface SysDeptTreeResult extends SysDeptResult {
 
 export interface SysDeptParams {
   name: string;
-  parent_id?: number;
+  parent_id?: ID;
   sort?: number;
   leader?: string;
   phone?: string;
@@ -32,12 +37,11 @@ export interface SysDeptTreeParams {
   phone?: string;
   status?: number;
 }
-
 /**
  * 获取部门树
  */
-export async function getSysDeptTreeApi(params: SysDeptTreeParams) {
-  return requestClient.get<SysDeptTreeResult[]>('/api/v1/sys/depts', {
+export async function getSysDeptTreeApi(params?: SysDeptTreeParams) {
+  return requestClient.get<SysDeptTreeResult[]>(`${basePath}/tree`, {
     params,
   });
 }
@@ -45,27 +49,27 @@ export async function getSysDeptTreeApi(params: SysDeptTreeParams) {
 /**
  * 获取部门详情
  */
-export async function getSysDeptDetailApi(pk: number) {
-  return requestClient.get<SysDeptTreeResult>(`/api/v1/sys/depts/${pk}`);
+export async function getSysDeptDetailApi(pk: ID) {
+  return requestClient.get<SysDeptTreeResult>(`${basePath}/${pk}`);
 }
 
 /**
  * 创建部门
  */
 export async function createSysDeptApi(data: SysDeptParams) {
-  return requestClient.post('/api/v1/sys/depts', data);
+  return requestClient.post(basePath, data);
 }
 
 /**
  * 更新部门
  */
-export async function updateSysDeptApi(pk: number, data: SysDeptParams) {
-  return requestClient.put(`/api/v1/sys/depts/${pk}`, data);
+export async function updateSysDeptApi(pk: ID, data: SysDeptParams) {
+  return requestClient.put(`${basePath}/${pk}`, data);
 }
 
 /**
  * 删除部门
  */
-export async function deleteSysDeptApi(pk: number) {
-  return requestClient.delete(`/api/v1/sys/depts/${pk}`);
+export async function deleteSysDeptApi(pk: ID) {
+  return requestClient.delete(`${basePath}/${pk}`);
 }

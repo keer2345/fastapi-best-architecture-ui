@@ -9,3 +9,4 @@
  * 所有 ID / 外键字段一律使用本类型，不要写成 `number` 或裸 `number | string`。
  */
 export type ID = number | string;
+export type IDS = ID[];
