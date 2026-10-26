@@ -1,4 +1,4 @@
-import type { PaginationResult } from '#/types';
+import type { ID, IDS, PaginationResult } from '#/types';
 
 import { requestClient } from '#/api/request';
 
@@ -11,7 +11,7 @@ export interface SysNoticeParams {
 }
 
 export interface SysNoticeResult {
-  id: number;
+  id: ID;
   title: string;
   type: number;
   status: number;
@@ -36,7 +36,7 @@ export async function getNoticeListApi(params: SysNoticeParams) {
   );
 }
 
-export async function getSysNoticeApi(pk: number) {
+export async function getSysNoticeApi(pk: ID) {
   return requestClient.get<SysNoticeResult>(`/api/v1/sys/notices/${pk}`);
 }
 
@@ -44,13 +44,10 @@ export async function createSysNoticeApi(data: CreateSysNoticeParams) {
   return requestClient.post(`/api/v1/sys/notices`, data);
 }
 
-export async function updateSysNoticeApi(
-  pk: number,
-  data: UpdateSysNoticeParams,
-) {
+export async function updateSysNoticeApi(pk: ID, data: UpdateSysNoticeParams) {
   return requestClient.put(`/api/v1/sys/notices/${pk}`, data);
 }
 
-export async function deleteSysNoticeApi(pks: number[]) {
+export async function deleteSysNoticeApi(pks: IDS) {
   return requestClient.delete('/api/v1/sys/notices', { data: { pks } });
 }

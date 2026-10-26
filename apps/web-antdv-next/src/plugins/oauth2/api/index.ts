@@ -1,10 +1,12 @@
+import type { ID } from '#/types';
+
 import { requestClient } from '#/api/request';
 
 export interface OAuth2BindingResult {
-  id: number;
+  id: ID;
   sid: string;
   source: string;
-  user_id: number;
+  user_id: ID;
 }
 
 export interface OAuth2BindingParams {

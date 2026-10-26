@@ -4,6 +4,7 @@ import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
 
 import type { OnActionClickParams } from '#/adapter/vxe-table';
 import type { SysMenuParams, SysMenuTreeResult } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -112,7 +113,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysMenuParams extends SysMenuParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysMenuParams>();

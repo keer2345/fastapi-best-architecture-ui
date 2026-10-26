@@ -1,4 +1,4 @@
-import type { PaginationResult } from '#/types';
+import type { ID, IDS, PaginationResult } from '#/types';
 
 import { requestClient } from '#/api/request';
 
@@ -10,7 +10,7 @@ export interface DictTypeParams {
 }
 
 export interface DictTypeResult {
-  id: number;
+  id: ID;
   name: string;
   code: string;
   remark?: string;
@@ -25,14 +25,14 @@ export interface CreateDictTypeParams {
 }
 
 export interface DictDataParams {
-  type_id?: number;
+  type_id?: ID;
   label?: string;
   status?: number;
 }
 
 export interface DictDataResult {
-  id: number;
-  type_id: number;
+  id: ID;
+  type_id: ID;
   label: string;
   value: string;
   color?: string;
@@ -42,7 +42,7 @@ export interface DictDataResult {
 }
 
 export interface CreateDictDataParams {
-  type_id: number;
+  type_id: ID;
   label: string;
   value: string;
   sort: number;
@@ -67,14 +67,11 @@ export async function createDictTypeApi(data: CreateDictTypeParams) {
   return await requestClient.post('/api/v1/sys/dict-types', data);
 }
 
-export async function updateDictTypeApi(
-  pk: number,
-  data: CreateDictTypeParams,
-) {
+export async function updateDictTypeApi(pk: ID, data: CreateDictTypeParams) {
   return await requestClient.put(`/api/v1/sys/dict-types/${pk}`, data);
 }
 
-export async function deleteDictTypeApi(pks: number[]) {
+export async function deleteDictTypeApi(pks: IDS) {
   return await requestClient.delete('/api/v1/sys/dict-types', {
     data: { pks },
   });
@@ -97,14 +94,11 @@ export async function createDictDataApi(data: CreateDictDataParams) {
   return await requestClient.post('/api/v1/sys/dict-datas', data);
 }
 
-export async function updateDictDataApi(
-  pk: number,
-  data: CreateDictDataParams,
-) {
+export async function updateDictDataApi(pk: ID, data: CreateDictDataParams) {
   return await requestClient.put(`/api/v1/sys/dict-datas/${pk}`, data);
 }
 
-export async function deleteDictDataApi(pks: number[]) {
+export async function deleteDictDataApi(pks: IDS) {
   return await requestClient.delete('/api/v1/sys/dict-datas', {
     data: { pks },
   });

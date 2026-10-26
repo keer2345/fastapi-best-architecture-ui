@@ -6,6 +6,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { CreateSysRoleParams, SysRoleResult } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -108,7 +109,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysRoleParams extends CreateSysRoleParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysRoleParams>();
@@ -156,7 +157,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
   connectedComponent: ExtraDrawer,
 });
 
-const openDrawer = async (pk: number) => {
+const openDrawer = async (pk: ID) => {
   try {
     const roleMenu = await getSysRoleMenuApi(pk);
     drawerApi

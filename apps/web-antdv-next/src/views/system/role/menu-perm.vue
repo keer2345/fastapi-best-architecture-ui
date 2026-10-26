@@ -4,6 +4,7 @@ import type { VxeTableGridOptions } from '@vben/plugins/vxe-table';
 
 import type { OnActionClickParams } from '#/adapter/vxe-table';
 import type { SysDataScopeResult, SysMenuTreeResult } from '#/api';
+import type { ID, IDS } from '#/types';
 
 import { computed, nextTick, ref, watch } from 'vue';
 
@@ -33,8 +34,8 @@ const tabItems = computed(() => [
   { key: '0', label: $t('system.role.menuPerm') },
   { key: '1', label: $t('system.role.dataPerm') },
 ]);
-const clickRow = ref<number>(0);
-const defaultCheckedRoleMenuKeys = ref<number[]>([]);
+const clickRow = ref<ID>(0);
+const defaultCheckedRoleMenuKeys = ref<IDS>([]);
 const checkStrictly = ref<boolean>(true);
 
 const [Drawer, drawerApi] = useVbenDrawer({
@@ -138,7 +139,7 @@ watch(defaultCheckedRoleMenuKeys, async (newValue) => {
   await nextTick();
   gridApi.setGridOptions({
     checkboxConfig: {
-      checkRowKeys: newValue,
+      checkRowKeys: newValue.map(String),
     },
   });
 });
@@ -177,15 +178,15 @@ const dataScopeGridOptions: VxeTableGridOptions<SysMenuTreeResult> = {
     autoLoad: false,
     ajax: {
       query: async () => {
-      const [data, roleScopes] = await Promise.all([
-        getSysDataScopesApi(),
-        getSysRoleDataScopesApi(clickRow.value),
-      ]);
-      dataScopeGridApi.setGridOptions({
-        checkboxConfig: {
-          checkRowKeys: roleScopes.scopes,
-        },
-      });
+        const [data, roleScopes] = await Promise.all([
+          getSysDataScopesApi(),
+          getSysRoleDataScopesApi(clickRow.value),
+        ]);
+        dataScopeGridApi.setGridOptions({
+          checkboxConfig: {
+            checkRowKeys: roleScopes.scopes.map(String),
+          },
+        });
         return data;
       },
     },

@@ -1,11 +1,12 @@
 import type { UserInfo } from '@vben/types';
 
 import type { SysDeptResult, SysRoleResult } from '#/api';
+import type { ID, IDS } from '#/types';
 
 import { requestClient } from '#/api/request';
 
 export interface MyUserInfo extends UserInfo {
-  id: number;
+  id: ID;
   nickname: string;
   email?: string;
   phone?: string;
@@ -14,9 +15,9 @@ export interface MyUserInfo extends UserInfo {
 }
 
 export interface SysUserResult {
-  id: number;
+  id: ID;
   uuid: string;
-  dept_id?: number;
+  dept_id?: ID;
   username: string;
   nickname: string;
   email?: string;
@@ -33,7 +34,7 @@ export interface SysUserResult {
 }
 
 export interface SysUserParams {
-  dept?: number;
+  dept?: ID;
   username?: string;
   phone?: string;
   status?: number;
@@ -42,13 +43,13 @@ export interface SysUserParams {
 }
 
 export interface SysUpdateUserParams {
-  dept_id?: number;
+  dept_id?: ID;
   username: string;
   nickname: string;
   avatar?: string;
   email?: string;
   phone?: string;
-  roles: number[];
+  roles: IDS;
 }
 
 export interface SysAddUserParams extends SysUpdateUserParams {
@@ -98,11 +99,11 @@ export async function createSysUserApi(data: SysAddUserParams) {
   return requestClient.post('/api/v1/sys/users', data);
 }
 
-export async function updateSysUserApi(pk: number, data: SysUpdateUserParams) {
+export async function updateSysUserApi(pk: ID, data: SysUpdateUserParams) {
   return requestClient.put(`/api/v1/sys/users/${pk}`, data);
 }
 
-export async function updateSysUserPermissionApi(pk: number, type: string) {
+export async function updateSysUserPermissionApi(pk: ID, type: string) {
   return requestClient.put(`/api/v1/sys/users/${pk}/permissions`, undefined, {
     params: { type },
     paramsSerializer: 'repeat',
@@ -131,12 +132,12 @@ export async function updateSysUserPasswordApi(data: SysUpdatePasswordParams) {
 }
 
 export async function resetSysUserPasswordApi(
-  pk: number,
+  pk: ID,
   data: SysResetPasswordParams,
 ) {
   return requestClient.put(`/api/v1/sys/users/${pk}/password`, data);
 }
 
-export async function deleteSysUserApi(pk: number) {
+export async function deleteSysUserApi(pk: ID) {
   return requestClient.delete(`/api/v1/sys/users/${pk}`);
 }

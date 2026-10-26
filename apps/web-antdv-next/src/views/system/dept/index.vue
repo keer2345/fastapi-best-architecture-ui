@@ -6,6 +6,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { SysDeptParams, SysDeptTreeResult } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -114,7 +115,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysDeptParams extends SysDeptParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysDeptParams>();

@@ -5,6 +5,7 @@ import type {
   OnActionClickParams,
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
+import type { ID } from '#/types';
 
 import { computed, h, ref } from 'vue';
 
@@ -180,7 +181,7 @@ async function showGenerate() {
 }
 
 interface formCodeGenColumnParams extends CodeGenColumnParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formCodeGenColumnParams>();

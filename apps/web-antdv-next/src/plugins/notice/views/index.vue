@@ -11,6 +11,7 @@ import type {
   OnActionClickParams,
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -116,7 +117,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysNoticeParams extends UpdateSysNoticeParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysNoticeParams>();

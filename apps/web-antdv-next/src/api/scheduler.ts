@@ -1,6 +1,6 @@
 import type { Dayjs } from 'dayjs';
 
-import type { PaginationResult } from '#/types';
+import type { ID, IDS, PaginationResult } from '#/types';
 
 import { requestClient } from '#/api/request';
 
@@ -19,7 +19,7 @@ export interface TaskSchedulerParams {
 }
 
 export interface TaskResult {
-  id: number;
+  id: ID;
   task_id: string;
   status: string;
   result?: string;
@@ -53,7 +53,7 @@ export interface CreateTaskSchedulerParams {
 }
 
 export interface TaskSchedulerResult extends CreateTaskSchedulerParams {
-  id: number;
+  id: ID;
   status: number;
   total_run_count: number;
   last_run_time: string;
@@ -61,7 +61,7 @@ export interface TaskSchedulerResult extends CreateTaskSchedulerParams {
   updated_time?: string;
 }
 
-export async function getTaskResultApi(pk: number) {
+export async function getTaskResultApi(pk: ID) {
   return requestClient.get<TaskResult>(`/api/v1/task-results/${pk}`);
 }
 
@@ -74,7 +74,7 @@ export async function getTaskResultListApi(params?: TaskResultParams) {
   );
 }
 
-export async function deleteTaskResultApi(pks: number[]) {
+export async function deleteTaskResultApi(pks: IDS) {
   return requestClient.delete('/api/v1/task-results', { data: { pks } });
 }
 
@@ -89,7 +89,7 @@ export async function getTaskSchedulerListApi(params?: TaskSchedulerParams) {
   );
 }
 
-export async function getTaskSchedulerApi(pk: number) {
+export async function getTaskSchedulerApi(pk: ID) {
   return requestClient.get<TaskSchedulerResult>(`/api/v1/schedulers/${pk}`);
 }
 
@@ -98,21 +98,21 @@ export async function createTaskSchedulerApi(data: CreateTaskSchedulerParams) {
 }
 
 export async function updateTaskSchedulerApi(
-  pk: number,
+  pk: ID,
   data: CreateTaskSchedulerParams,
 ) {
   return requestClient.put(`/api/v1/schedulers/${pk}`, data);
 }
 
-export async function updateTaskSchedulerStatusApi(pk: number) {
+export async function updateTaskSchedulerStatusApi(pk: ID) {
   return requestClient.put(`/api/v1/schedulers/${pk}/status`);
 }
 
-export async function deleteTaskSchedulerApi(pk: number) {
+export async function deleteTaskSchedulerApi(pk: ID) {
   return requestClient.delete(`/api/v1/schedulers/${pk}`);
 }
 
-export async function executeTaskSchedulerApi(pk: number) {
+export async function executeTaskSchedulerApi(pk: ID) {
   return requestClient.post(`/api/v1/schedulers/${pk}/execute`);
 }
 

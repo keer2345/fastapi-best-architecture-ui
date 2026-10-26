@@ -7,6 +7,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { LoginLogResult, OperaLogResult } from '#/api';
+import type { IDS } from '#/types';
 
 import { computed, ref, watch } from 'vue';
 
@@ -142,7 +143,7 @@ const operaLogDescItems = computed(() => {
   ];
 });
 
-const checkedRows = ref<number[]>([]);
+const checkedRows = ref<IDS>([]);
 const deleteDisable = ref<boolean>(true);
 const deleteLoading = ref<boolean>(false);
 

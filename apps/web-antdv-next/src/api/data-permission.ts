@@ -1,7 +1,9 @@
+import type { ID, IDS } from '#/types';
+
 import { requestClient } from '#/api/request';
 
 export interface SysDataScopeResult {
-  id: number;
+  id: ID;
   name: string;
   status: number;
   created_time: string;
@@ -9,7 +11,7 @@ export interface SysDataScopeResult {
 }
 
 export interface SysDataRuleResult {
-  id: number;
+  id: ID;
   name: string;
   model: string;
   column: string;
@@ -69,7 +71,7 @@ export async function getSysDataScopesApi() {
   return requestClient.get<SysDataScopeResult[]>('/api/v1/sys/data-scopes/all');
 }
 
-export async function getSysDataScopeRulesApi(pk: number) {
+export async function getSysDataScopeRulesApi(pk: ID) {
   return requestClient.get<SysDataScopeRulesResult>(
     `/api/v1/sys/data-scopes/${pk}/rules`,
   );
@@ -80,17 +82,17 @@ export async function createSysDataScope(data: CreateSysDataScopeParams) {
 }
 
 export async function updateSysDataScope(
-  pk: number,
+  pk: ID,
   data: CreateSysDataScopeParams,
 ) {
   return requestClient.put(`/api/v1/sys/data-scopes/${pk}`, data);
 }
 
-export async function updateSysDataScopeRulesApi(pk: number, rules: number[]) {
+export async function updateSysDataScopeRulesApi(pk: ID, rules: IDS) {
   return requestClient.put(`/api/v1/sys/data-scopes/${pk}/rules`, { rules });
 }
 
-export async function deleteSysDataScopeApi(pks: number[]) {
+export async function deleteSysDataScopeApi(pks: IDS) {
   return requestClient.delete(`/api/v1/sys/data-scopes`, { data: { pks } });
 }
 
@@ -125,12 +127,12 @@ export async function createSysDataRuleApi(data: CreateSysDataRuleParams) {
 }
 
 export async function updateSysDataRuleApi(
-  pk: number,
+  pk: ID,
   data: CreateSysDataRuleParams,
 ) {
   return requestClient.put(`/api/v1/sys/data-rules/${pk}`, data);
 }
 
-export async function deleteSysDataRuleApi(pks: number[]) {
+export async function deleteSysDataRuleApi(pks: IDS) {
   return requestClient.delete(`/api/v1/sys/data-rules`, { data: { pks } });
 }

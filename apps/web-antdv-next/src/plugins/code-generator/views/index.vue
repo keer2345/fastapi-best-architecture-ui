@@ -11,6 +11,7 @@ import type {
   OnActionClickParams,
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -150,7 +151,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formCodeGenBusinessParams extends CodeGenBusinessParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formCodeGenBusinessParams>();

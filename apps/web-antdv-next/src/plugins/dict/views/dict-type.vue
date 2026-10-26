@@ -12,6 +12,7 @@ import type {
   VxeGridListeners,
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -82,7 +83,7 @@ const gridOptions: VxeTableGridOptions<DictTypeResult> = {
     },
   },
 };
-const lastDictTypeId = ref<number>(0);
+const lastDictTypeId = ref<ID>(0);
 const gridEvents: VxeGridListeners<DictDataResult> = {
   cellClick: ({ row }) => {
     if (lastDictTypeId.value === row.id) {
@@ -133,7 +134,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formDictTypeParams extends CreateDictTypeParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formDictTypeParams>();

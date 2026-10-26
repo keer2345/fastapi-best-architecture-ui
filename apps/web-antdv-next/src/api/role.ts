@@ -1,7 +1,7 @@
 import type { RouteRecordStringComponent } from '@vben/types';
 
 import { requestClient } from './request';
-import type { IDS } from '#/types';
+import type { ID, IDS } from '#/types';
 
 export interface SysRoleParams {
   name?: string;
@@ -11,7 +11,7 @@ export interface SysRoleParams {
 }
 
 export interface SysRoleResult {
-  id: number;
+  id: ID;
   name: string;
   status: number;
   is_filter_scopes: boolean;
@@ -37,7 +37,7 @@ export async function getAllSysRoleApi() {
   return requestClient.get<SysRoleResult[]>('/api/v1/sys/roles/all');
 }
 
-export async function getSysRoleMenuApi(pk: number) {
+export async function getSysRoleMenuApi(pk: ID) {
   return requestClient.get<RouteRecordStringComponent[]>(
     `/api/v1/sys/roles/${pk}/menus`,
   );
@@ -48,26 +48,28 @@ export interface SysRoleDataScopesResult {
   scopes: IDS;
 }
 
-export async function getSysRoleDataScopesApi(pk: number) {
-  return requestClient.get<SysRoleDataScopesResult>(`/api/v1/sys/roles/${pk}/scopes`);
+export async function getSysRoleDataScopesApi(pk: ID) {
+  return requestClient.get<SysRoleDataScopesResult>(
+    `/api/v1/sys/roles/${pk}/scopes`,
+  );
 }
 
 export async function createSysRoleApi(data: CreateSysRoleParams) {
   return requestClient.post('/api/v1/sys/roles', data);
 }
 
-export async function updateSysRoleApi(pk: number, data: CreateSysRoleParams) {
+export async function updateSysRoleApi(pk: ID, data: CreateSysRoleParams) {
   return requestClient.put(`/api/v1/sys/roles/${pk}`, data);
 }
 
-export async function updateSysRoleMenuApi(pk: number, menus: number[]) {
+export async function updateSysRoleMenuApi(pk: ID, menus: IDS) {
   return requestClient.put(`/api/v1/sys/roles/${pk}/menus`, { menus });
 }
 
-export async function updateSysRoleDataScopesApi(pk: number, scopes: IDS) {
+export async function updateSysRoleDataScopesApi(pk: ID, scopes: IDS) {
   return requestClient.put(`/api/v1/sys/roles/${pk}/scopes`, { scopes });
 }
 
-export async function deleteSysRoleApi(pks: number[]) {
+export async function deleteSysRoleApi(pks: IDS) {
   return requestClient.delete(`/api/v1/sys/roles`, { data: { pks } });
 }

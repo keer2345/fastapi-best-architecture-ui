@@ -7,6 +7,7 @@ import type {
   OnActionClickParams,
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
+import type { ID } from '#/types';
 
 import { computed, onUnmounted, ref } from 'vue';
 
@@ -82,7 +83,7 @@ const gridOptions: VxeTableGridOptions<DictDataResult> = {
   },
 };
 
-const dictTypeId = ref<number>(0);
+const dictTypeId = ref<ID>(0);
 
 const [Grid, gridApi] = useVbenVxeGrid({ formOptions, gridOptions });
 
@@ -116,7 +117,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formDictDataParams extends CreateDictDataParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formDictDataParams>();
@@ -160,7 +161,7 @@ const [Modal, modalApi] = useVbenModal({
   },
 });
 
-function onDictTypeRowClick(value: number) {
+function onDictTypeRowClick(value: ID) {
   dictTypeId.value = value;
   onRefresh();
 }

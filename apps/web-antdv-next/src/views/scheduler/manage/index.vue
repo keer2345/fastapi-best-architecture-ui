@@ -6,6 +6,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { CreateTaskSchedulerParams, TaskSchedulerResult } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
@@ -36,8 +37,8 @@ import { getNextRuns, getScheduleLabel } from './schedule';
 const wsStore = useWebSocketStore();
 
 const taskWorkerStatus = ref<any[]>([]);
-const executeLoadingMap = ref<Record<number, boolean>>({});
-const statusLoadingMap = ref<Record<number, boolean>>({});
+const executeLoadingMap = ref<Record<ID, boolean>>({});
+const statusLoadingMap = ref<Record<ID, boolean>>({});
 
 const formOptions: VbenFormProps = {
   collapsed: true,
@@ -134,7 +135,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formTaskSchedulerParams extends CreateTaskSchedulerParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formTaskSchedulerParams>();
@@ -190,7 +191,7 @@ const [Modal, modalApi] = useVbenModal({
   },
 });
 
-const executeTask = async (pk: number) => {
+const executeTask = async (pk: ID) => {
   executeLoadingMap.value[pk] = true;
   try {
     await executeTaskSchedulerApi(pk);

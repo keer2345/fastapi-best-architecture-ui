@@ -4,11 +4,10 @@ import { $t } from '@vben/locales';
 
 import { requestClient } from '#/api/request';
 
-// import type { ID } from '#/types';
+import type { ID } from '#/types';
 
 export interface SysMenuResult {
-  id: number;
-  // id: ID;
+  id: ID;
   title: string;
   name: string;
   path: string;
@@ -21,7 +20,7 @@ export interface SysMenuResult {
   display: number;
   cache: number;
   remark?: string;
-  parent_id?: number;
+  parent_id?: ID;
   created_time: string;
 }
 
@@ -33,7 +32,7 @@ export interface SysMenuParams {
   title: string;
   name: string;
   path?: string;
-  parent_id?: number;
+  parent_id?: ID;
   sort?: number;
   icon?: string;
   type?: number;
@@ -119,10 +118,10 @@ export async function createSysMenuApi(data: SysMenuParams) {
   return requestClient.post('/api/v1/sys/menus', data);
 }
 
-export async function updateSysMenuApi(pk: number, data: SysMenuParams) {
+export async function updateSysMenuApi(pk: ID, data: SysMenuParams) {
   return requestClient.put(`/api/v1/sys/menus/${pk}`, data);
 }
 
-export async function deleteSysMenuApi(pk: number) {
+export async function deleteSysMenuApi(pk: ID) {
   return requestClient.delete(`/api/v1/sys/menus/${pk}`);
 }

@@ -6,6 +6,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { CreateSysDataRuleParams, SysDataRuleResult } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -104,7 +105,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysDataRuleParams extends CreateSysDataRuleParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysDataRuleParams>();

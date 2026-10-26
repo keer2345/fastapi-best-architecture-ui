@@ -10,6 +10,7 @@ import type {
   SysDataRuleResult,
   SysDataScopeResult,
 } from '#/api';
+import type { ID } from '#/types';
 
 import { computed, ref } from 'vue';
 
@@ -101,7 +102,7 @@ function onActionClick({ code, row }: OnActionClickParams<SysDataScopeResult>) {
       getSysDataScopeRulesApi(row.id).then((res) => {
         dataScopeRuleGridApi.setGridOptions({
           checkboxConfig: {
-            checkRowKeys: res.rules.map((item) => item.id),
+            checkRowKeys: res.rules.map((item) => String(item.id)),
           },
         });
       });
@@ -119,7 +120,7 @@ const [Form, formApi] = useVbenForm({
 });
 
 interface formSysDataScopeParams extends CreateSysDataScopeParams {
-  id?: number;
+  id?: ID;
 }
 
 const formData = ref<formSysDataScopeParams>();
@@ -163,7 +164,7 @@ const [Modal, modalApi] = useVbenModal({
   },
 });
 
-const clickDataScope = ref<number>(0);
+const clickDataScope = ref<ID>(0);
 
 const [Drawer, drawerApi] = useVbenDrawer({
   destroyOnClose: true,

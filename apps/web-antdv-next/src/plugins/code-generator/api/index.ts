@@ -1,6 +1,6 @@
 import type { Recordable } from '@vben/types';
 
-import type { PaginationResult } from '#/types';
+import type { ID, PaginationResult } from '#/types';
 
 import { requestClient } from '#/api/request';
 
@@ -26,7 +26,7 @@ export interface CodeGenBusinessParams {
 }
 
 export interface CodeGenBusinessResult extends CodeGenBusinessParams {
-  id: number;
+  id: ID;
   created_time: string;
   updated_time: string;
 }
@@ -40,11 +40,11 @@ export interface CodeGenColumnParams {
   length: number;
   is_pk: boolean;
   is_nullable: boolean;
-  gen_business_id: number;
+  gen_business_id: ID;
 }
 
 export interface CodeGenColumnResult extends CodeGenColumnParams {
-  id: number;
+  id: ID;
   pd_type: string;
 }
 
@@ -54,7 +54,7 @@ export interface CodeGenBusinessImportParams {
   table_name: string;
 }
 
-export async function getCodeGenBusinessDetailApi(pk: number) {
+export async function getCodeGenBusinessDetailApi(pk: ID) {
   return requestClient.get<CodeGenBusinessResult>(
     `/api/v1/code-generation/businesses/${pk}`,
   );
@@ -71,13 +71,13 @@ export async function createCodeGenBusinessApi(data: CodeGenBusinessParams) {
 }
 
 export async function updateCodeGenBusinessApi(
-  pk: number,
+  pk: ID,
   data: CodeGenBusinessParams,
 ) {
   return requestClient.put(`/api/v1/code-generation/businesses/${pk}`, data);
 }
 
-export async function deleteCodeGenBusinessApi(pk: number) {
+export async function deleteCodeGenBusinessApi(pk: ID) {
   return requestClient.delete(`/api/v1/code-generation/businesses/${pk}`);
 }
 
@@ -90,7 +90,7 @@ export async function getCodeGenBusinessListApi(
   );
 }
 
-export async function getAllCodeGenBusinessColumnApi(pk: number) {
+export async function getAllCodeGenBusinessColumnApi(pk: ID) {
   return requestClient.get<PaginationResult<CodeGenColumnResult>>(
     `/api/v1/code-generation/businesses/${pk}/columns`,
   );
@@ -100,7 +100,7 @@ export async function getAllCodeGenColumnTypeApi() {
   return requestClient.get<string[]>(`/api/v1/code-generation/columns/types`);
 }
 
-export async function getCodeGenColumnDetailApi(pk: number) {
+export async function getCodeGenColumnDetailApi(pk: ID) {
   return requestClient.get(`/api/v1/code-generation/columns/${pk}`);
 }
 
@@ -109,13 +109,13 @@ export async function createCodeGenColumnApi(data: CodeGenColumnParams) {
 }
 
 export async function updateCodeGenColumnApi(
-  pk: number,
+  pk: ID,
   data: CodeGenColumnParams,
 ) {
   return requestClient.put(`/api/v1/code-generation/columns/${pk}`, data);
 }
 
-export async function deleteCodeGenColumnApi(pk: number) {
+export async function deleteCodeGenColumnApi(pk: ID) {
   return requestClient.delete(`/api/v1/code-generation/columns/${pk}`);
 }
 
@@ -137,21 +137,21 @@ export async function importCodeGenDbTableApi(
   );
 }
 
-export async function previewCodeGenApi(pk: number) {
+export async function previewCodeGenApi(pk: ID) {
   return requestClient.get(`/api/v1/code-generation/generations/${pk}/preview`);
 }
 
-export async function getCodeGenPathApi(pk: number) {
+export async function getCodeGenPathApi(pk: ID) {
   return requestClient.get<string[]>(
     `/api/v1/code-generation/generations/${pk}/paths`,
   );
 }
 
-export async function generateCodeApi(pk: number) {
+export async function generateCodeApi(pk: ID) {
   return requestClient.post(`/api/v1/code-generation/generations/${pk}`);
 }
 
-export async function downloadCodeApi(pk: number) {
+export async function downloadCodeApi(pk: ID) {
   return requestClient.download<Blob>(
     `/api/v1/code-generation/generations/${pk}`,
   );

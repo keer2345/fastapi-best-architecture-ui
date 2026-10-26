@@ -6,6 +6,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { LoginLogResult } from '#/api';
+import type { IDS } from '#/types';
 
 import { ref, watch } from 'vue';
 
@@ -85,7 +86,7 @@ function onRefresh() {
   gridApi.query();
 }
 
-const checkedRows = ref<number[]>([]);
+const checkedRows = ref<IDS>([]);
 const deleteDisable = ref<boolean>(true);
 const deleteLoading = ref<boolean>(false);
 

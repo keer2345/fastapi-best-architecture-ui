@@ -7,6 +7,7 @@ import type {
   VxeTableGridOptions,
 } from '#/adapter/vxe-table';
 import type { TaskResult } from '#/api';
+import type { IDS } from '#/types';
 
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -140,7 +141,7 @@ const taskResultDescItems = computed(() => {
   ];
 });
 
-const checkedRows = ref<number[]>([]);
+const checkedRows = ref<IDS>([]);
 const deleteDisable = ref<boolean>(true);
 const deleteLoading = ref<boolean>(false);
 

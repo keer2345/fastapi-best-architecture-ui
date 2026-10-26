@@ -13,6 +13,7 @@ import type {
   SysUpdateUserParams,
   SysUserResult,
 } from '#/api';
+import type { ID, IDS } from '#/types';
 
 import { onMounted, ref } from 'vue';
 
@@ -60,7 +61,7 @@ const fetchDeptTree = async (name: string | undefined) => {
 };
 
 const searchDeptValue = ref<string>();
-const selectedDeptId = ref<number | string>();
+const selectedDeptId = ref<ID>();
 const searchDept = async (searchValue: string | undefined) => {
   await fetchDeptTree(searchValue);
 };
@@ -149,7 +150,7 @@ async function onActionClick({
   }
 }
 
-const fetchSysUserListByDept = (selectedKeys: (number | string)[]) => {
+const fetchSysUserListByDept = (selectedKeys: IDS) => {
   selectedDeptId.value = selectedKeys[0];
   gridApi.query({ dept: selectedDeptId.value });
 };
@@ -173,7 +174,7 @@ const [EditForm, formApi] = useVbenForm({
   schema: useEditSchema(roleSelectOptions),
 });
 
-const editUser = ref<number>(0);
+const editUser = ref<ID>(0);
 
 const [editModal, editModalApi] = useVbenModal({
   destroyOnClose: true,

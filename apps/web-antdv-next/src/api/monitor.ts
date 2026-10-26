@@ -1,3 +1,5 @@
+import type { ID } from '#/types';
+
 import { requestClient } from './request';
 
 export interface ServerMonitorResult {
@@ -14,7 +16,7 @@ export interface RedisMonitorResult {
 }
 
 export interface OnlineMonitorResult {
-  id: number;
+  id: ID;
   session_uuid: string;
   username: string;
   nickname: string;
@@ -49,9 +51,6 @@ export async function getOnlineMonitorApi(params: MonitorOnlineParams) {
   });
 }
 
-export async function kickOutOnlineApi(
-  pk: number,
-  params: KickOutOnlineParams,
-) {
+export async function kickOutOnlineApi(pk: ID, params: KickOutOnlineParams) {
   return requestClient.delete(`/api/v1/monitors/sessions/${pk}`, { params });
 }
