@@ -1,6 +1,7 @@
 import type { RouteRecordStringComponent } from '@vben/types';
 
 import { requestClient } from './request';
+import type { IDS } from '#/types';
 
 export interface SysRoleParams {
   name?: string;
@@ -42,8 +43,13 @@ export async function getSysRoleMenuApi(pk: number) {
   );
 }
 
+export interface SysRoleDataScopesResult {
+  /** 角色数据范围 ID 列表（雪花 ID，后端统一序列化为字符串保精度） */
+  scopes: IDS;
+}
+
 export async function getSysRoleDataScopesApi(pk: number) {
-  return requestClient.get<number[]>(`/api/v1/sys/roles/${pk}/scopes`);
+  return requestClient.get<SysRoleDataScopesResult>(`/api/v1/sys/roles/${pk}/scopes`);
 }
 
 export async function createSysRoleApi(data: CreateSysRoleParams) {
@@ -58,7 +64,7 @@ export async function updateSysRoleMenuApi(pk: number, menus: number[]) {
   return requestClient.put(`/api/v1/sys/roles/${pk}/menus`, { menus });
 }
 
-export async function updateSysRoleDataScopesApi(pk: number, scopes: number[]) {
+export async function updateSysRoleDataScopesApi(pk: number, scopes: IDS) {
   return requestClient.put(`/api/v1/sys/roles/${pk}/scopes`, { scopes });
 }
 
