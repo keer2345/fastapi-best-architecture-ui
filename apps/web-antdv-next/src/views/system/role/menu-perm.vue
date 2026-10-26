@@ -177,15 +177,15 @@ const dataScopeGridOptions: VxeTableGridOptions<SysMenuTreeResult> = {
     autoLoad: false,
     ajax: {
       query: async () => {
-        const [data, checkedKeys] = await Promise.all([
-          getSysDataScopesApi(),
-          getSysRoleDataScopesApi(clickRow.value),
-        ]);
-        dataScopeGridApi.setGridOptions({
-          checkboxConfig: {
-            checkRowKeys: checkedKeys,
-          },
-        });
+      const [data, roleScopes] = await Promise.all([
+        getSysDataScopesApi(),
+        getSysRoleDataScopesApi(clickRow.value),
+      ]);
+      dataScopeGridApi.setGridOptions({
+        checkboxConfig: {
+          checkRowKeys: roleScopes.scopes,
+        },
+      });
         return data;
       },
     },
