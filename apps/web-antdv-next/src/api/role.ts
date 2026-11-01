@@ -1,7 +1,7 @@
-import type { RouteRecordStringComponent } from '@vben/types';
+import type { RouteRecordStringComponent } from "@vben/types";
 
-import { requestClient } from './request';
-import type { ID, IDS } from '#/types';
+import { requestClient } from "./request";
+import type { ID, IDS } from "#/types";
 
 export interface SysRoleParams {
   name?: string;
@@ -30,11 +30,11 @@ export interface CreateSysRoleParams {
  * 获取系统角色列表
  */
 export async function getSysRoleListApi(params: SysRoleParams) {
-  return requestClient.get<SysRoleResult[]>('/api/v1/sys/roles', { params });
+  return requestClient.get<SysRoleResult[]>("/api/v1/sys/roles", { params });
 }
 
 export async function getAllSysRoleApi() {
-  return requestClient.get<SysRoleResult[]>('/api/v1/sys/roles/all');
+  return requestClient.get<SysRoleResult[]>("/api/v1/sys/roles/all");
 }
 
 export async function getSysRoleMenuApi(pk: ID) {
@@ -55,19 +55,23 @@ export async function getSysRoleDataScopesApi(pk: ID) {
 }
 
 export async function createSysRoleApi(data: CreateSysRoleParams) {
-  return requestClient.post('/api/v1/sys/roles', data);
+  return requestClient.post("/api/v1/sys/roles", data);
 }
 
 export async function updateSysRoleApi(pk: ID, data: CreateSysRoleParams) {
   return requestClient.put(`/api/v1/sys/roles/${pk}`, data);
 }
 
-export async function updateSysRoleMenuApi(pk: ID, menus: IDS) {
-  return requestClient.put(`/api/v1/sys/roles/${pk}/menus`, { menus });
+export async function updateSysRoleMenuApi(pk: ID, menuIds: IDS) {
+  return requestClient.put(`/api/v1/sys/roles/${pk}/menus`, {
+    menu_ids: menuIds,
+  });
 }
 
-export async function updateSysRoleDataScopesApi(pk: ID, scopes: IDS) {
-  return requestClient.put(`/api/v1/sys/roles/${pk}/scopes`, { scopes });
+export async function updateSysRoleDataScopesApi(pk: ID, scopeIds: IDS) {
+  return requestClient.put(`/api/v1/sys/roles/${pk}/scopes`, {
+    scope_ids: scopeIds,
+  });
 }
 
 export async function deleteSysRoleApi(pks: IDS) {

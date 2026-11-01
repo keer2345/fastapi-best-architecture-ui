@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { VbenFormProps } from '@vben/common-ui';
+import type { VbenFormProps } from "@vben/common-ui";
 
 import type {
   OnActionClickParams,
   VxeTableGridOptions,
-} from '#/adapter/vxe-table';
+} from "#/adapter/vxe-table";
 import type {
   SysAddUserParams,
   SysDeptTreeResult,
@@ -12,20 +12,20 @@ import type {
   SysRoleResult,
   SysUpdateUserParams,
   SysUserResult,
-} from '#/api';
-import type { ID, IDS } from '#/types';
+} from "#/api";
+import type { ID, IDS } from "#/types";
 
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 
-import { ColPage, useVbenModal, VbenButton } from '@vben/common-ui';
-import { MaterialSymbolsAdd } from '@vben/icons';
-import { $t } from '@vben/locales';
-import { preferences } from '@vben/preferences';
+import { ColPage, useVbenModal, VbenButton } from "@vben/common-ui";
+import { MaterialSymbolsAdd } from "@vben/icons";
+import { $t } from "@vben/locales";
+import { preferences } from "@vben/preferences";
 
-import { message } from 'antdv-next';
+import { message } from "antdv-next";
 
-import { useVbenForm } from '#/adapter/form';
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { useVbenForm } from "#/adapter/form";
+import { useVbenVxeGrid } from "#/adapter/vxe-table";
 import {
   createSysUserApi,
   deleteSysUserApi,
@@ -34,14 +34,14 @@ import {
   getSysUserListApi,
   resetSysUserPasswordApi,
   updateSysUserApi,
-} from '#/api';
+} from "#/api";
 import {
   querySchema,
   resetPwdSchema,
   useAddSchema,
   useColumns,
   useEditSchema,
-} from '#/views/system/user/data';
+} from "#/views/system/user/data";
 
 /**
  * 左侧
@@ -73,19 +73,19 @@ const formOptions: VbenFormProps = {
   collapsed: true,
   showCollapseButton: true,
   submitButtonOptions: {
-    content: $t('common.form.query'),
+    content: $t("common.form.query"),
   },
   schema: querySchema,
 };
 
 const gridOptions: VxeTableGridOptions<SysUserResult> = {
   rowConfig: {
-    keyField: 'id',
+    keyField: "id",
   },
   checkboxConfig: {
     highlight: true,
   },
-  height: 'auto',
+  height: "auto",
   exportConfig: {},
   printConfig: {},
   toolbarConfig: {
@@ -93,7 +93,7 @@ const gridOptions: VxeTableGridOptions<SysUserResult> = {
     print: true,
     refresh: true,
     refreshOptions: {
-      code: 'query',
+      code: "query",
     },
     custom: true,
     zoom: true,
@@ -123,13 +123,13 @@ async function onActionClick({
   row,
 }: OnActionClickParams<SysUserResult>) {
   switch (code) {
-    case 'delete': {
+    case "delete": {
       gridApi.setLoading(true);
       try {
         await deleteSysUserApi(row.id);
         message.success({
-          content: $t('ui.actionMessage.deleteSuccess', [row.username]),
-          key: 'action_process_msg',
+          content: $t("ui.actionMessage.deleteSuccess", [row.username]),
+          key: "action_process_msg",
         });
         onRefresh();
       } finally {
@@ -137,12 +137,12 @@ async function onActionClick({
       }
       break;
     }
-    case 'edit': {
+    case "edit": {
       editUser.value = row.id;
       editModalApi.setData(row).open();
       break;
     }
-    case 'reset_password': {
+    case "reset_password": {
       editUser.value = row.id;
       resetPwdModalApi.setData(null).open();
       break;
@@ -185,7 +185,7 @@ const [editModal, editModalApi] = useVbenModal({
       const data = await formApi.getValues<SysUpdateUserParams>();
       try {
         await updateSysUserApi(editUser.value, data);
-        message.success($t('ui.actionMessage.operationSuccess'));
+        message.success($t("ui.actionMessage.operationSuccess"));
         await editModalApi.close();
         onRefresh();
       } finally {
@@ -201,7 +201,7 @@ const [editModal, editModalApi] = useVbenModal({
         formApi.setValues({
           ...data,
           dept_id: data.dept_id ?? data.dept?.id,
-          roles: data.roles?.map((item: SysRoleResult) => item.id) || [],
+          role_ids: data.roles?.map((item: SysRoleResult) => item.id) || [],
         });
       }
     }
@@ -222,7 +222,7 @@ const [addModal, addModalApi] = useVbenModal({
       const data = await addFormApi.getValues<SysAddUserParams>();
       try {
         await createSysUserApi(data);
-        message.success($t('ui.actionMessage.operationSuccess'));
+        message.success($t("ui.actionMessage.operationSuccess"));
         await addModalApi.close();
         onRefresh();
       } finally {
@@ -241,7 +241,7 @@ const [addModal, addModalApi] = useVbenModal({
 });
 
 const [ResetPwdForm, resetPwdFormApi] = useVbenForm({
-  layout: 'vertical',
+  layout: "vertical",
   showDefaultActions: false,
   schema: resetPwdSchema,
 });
@@ -256,7 +256,7 @@ const [resetPwdModal, resetPwdModalApi] = useVbenModal({
       const data = await resetPwdFormApi.getValues<SysResetPasswordParams>();
       try {
         await resetSysUserPasswordApi(editUser.value, data);
-        message.success($t('ui.actionMessage.operationSuccess'));
+        message.success($t("ui.actionMessage.operationSuccess"));
         await resetPwdModalApi.close();
       } finally {
         resetPwdModalApi.unlock();
@@ -306,7 +306,7 @@ onMounted(() => {
               :class="!selectedDeptId && 'font-medium text-primary'"
               @click="fetchAllUsers"
             >
-              {{ $t('common.all') }}
+              {{ $t("common.all") }}
             </div>
             <a-tree
               v-if="treeData.length > 0"
@@ -339,7 +339,7 @@ onMounted(() => {
       <template #toolbar-actions>
         <VbenButton @click="() => addModalApi.setData(null).open()">
           <MaterialSymbolsAdd class="size-5" />
-          {{ $t('system.user.add') }}
+          {{ $t("system.user.add") }}
         </VbenButton>
       </template>
       <template #avatar="{ row }">
@@ -351,7 +351,7 @@ onMounted(() => {
             {{ row.dept.name }}
           </a-tag>
         </span>
-        <span v-else>{{ $t('common.unbound') }}</span>
+        <span v-else>{{ $t("common.unbound") }}</span>
       </template>
       <template #roles="{ row }">
         <span v-if="row.roles.length === 1">
@@ -383,7 +383,7 @@ onMounted(() => {
             </a-tag>
           </a-popover>
         </span>
-        <span v-else>{{ $t('common.unbound') }}</span>
+        <span v-else>{{ $t("common.unbound") }}</span>
       </template>
     </Grid>
     <editModal :title="$t('system.user.edit')">

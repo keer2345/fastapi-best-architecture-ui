@@ -1,6 +1,6 @@
-import type { ID, IDS } from '#/types';
+import type { ID, IDS } from "#/types";
 
-import { requestClient } from '#/api/request';
+import { requestClient } from "#/api/request";
 
 export interface SysDataScopeResult {
   id: ID;
@@ -62,13 +62,13 @@ export interface CreateSysDataRuleParams {
 }
 
 export async function getSysDataScopeListApi(params: SysDataScopeParams) {
-  return requestClient.get<SysDataScopeResult[]>('/api/v1/sys/data-scopes', {
+  return requestClient.get<SysDataScopeResult[]>("/api/v1/sys/data-scopes", {
     params,
   });
 }
 
 export async function getSysDataScopesApi() {
-  return requestClient.get<SysDataScopeResult[]>('/api/v1/sys/data-scopes/all');
+  return requestClient.get<SysDataScopeResult[]>("/api/v1/sys/data-scopes/all");
 }
 
 export async function getSysDataScopeRulesApi(pk: ID) {
@@ -78,7 +78,7 @@ export async function getSysDataScopeRulesApi(pk: ID) {
 }
 
 export async function createSysDataScope(data: CreateSysDataScopeParams) {
-  return requestClient.post('/api/v1/sys/data-scopes', data);
+  return requestClient.post("/api/v1/sys/data-scopes", data);
 }
 
 export async function updateSysDataScope(
@@ -88,8 +88,10 @@ export async function updateSysDataScope(
   return requestClient.put(`/api/v1/sys/data-scopes/${pk}`, data);
 }
 
-export async function updateSysDataScopeRulesApi(pk: ID, rules: IDS) {
-  return requestClient.put(`/api/v1/sys/data-scopes/${pk}/rules`, { rules });
+export async function updateSysDataScopeRulesApi(pk: number, ruleIds: IDS) {
+  return requestClient.put(`/api/v1/sys/data-scopes/${pk}/rules`, {
+    rule_ids: ruleIds,
+  });
 }
 
 export async function deleteSysDataScopeApi(pks: IDS) {
@@ -97,17 +99,17 @@ export async function deleteSysDataScopeApi(pks: IDS) {
 }
 
 export async function getSysDataRuleListApi(params: SysDataRuleParams) {
-  return requestClient.get<SysDataRuleResult[]>('/api/v1/sys/data-rules', {
+  return requestClient.get<SysDataRuleResult[]>("/api/v1/sys/data-rules", {
     params,
   });
 }
 
 export async function getSysDataRulesApi() {
-  return requestClient.get<SysDataRuleResult[]>('/api/v1/sys/data-rules/all');
+  return requestClient.get<SysDataRuleResult[]>("/api/v1/sys/data-rules/all");
 }
 
 export async function getSysDataRuleModelsApi() {
-  return requestClient.get<string[]>('/api/v1/sys/data-rules/models');
+  return requestClient.get<string[]>("/api/v1/sys/data-rules/models");
 }
 
 export async function getSysDataRuleModelColumnsApi(model: string) {
@@ -118,12 +120,12 @@ export async function getSysDataRuleModelColumnsApi(model: string) {
 
 export async function getSysDataRuleTemplateVariablesApi() {
   return requestClient.get<SysDataRuleTemplateVariableResult[]>(
-    '/api/v1/sys/data-rules/value-template-variables',
+    "/api/v1/sys/data-rules/value-template-variables",
   );
 }
 
 export async function createSysDataRuleApi(data: CreateSysDataRuleParams) {
-  return requestClient.post('/api/v1/sys/data-rules', data);
+  return requestClient.post("/api/v1/sys/data-rules", data);
 }
 
 export async function updateSysDataRuleApi(

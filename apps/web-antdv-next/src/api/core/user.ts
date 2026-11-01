@@ -1,9 +1,9 @@
-import type { UserInfo } from '@vben/types';
+import type { UserInfo } from "@vben/types";
 
-import type { SysDeptResult, SysRoleResult } from '#/api';
-import type { ID, IDS } from '#/types';
+import type { SysDeptResult, SysRoleResult } from "#/api";
+import type { ID, IDS } from "#/types";
 
-import { requestClient } from '#/api/request';
+import { requestClient } from "#/api/request";
 
 export interface MyUserInfo extends UserInfo {
   id: ID;
@@ -49,7 +49,7 @@ export interface SysUpdateUserParams {
   avatar?: string;
   email?: string;
   phone?: string;
-  roles: IDS;
+  role_ids: IDS;
 }
 
 export interface SysAddUserParams extends SysUpdateUserParams {
@@ -88,15 +88,15 @@ export interface SysResetPasswordParams {
  * 获取用户信息
  */
 export async function getUserInfoApi() {
-  return requestClient.get<MyUserInfo>('/api/v1/sys/users/me');
+  return requestClient.get<MyUserInfo>("/api/v1/sys/users/me");
 }
 
 export async function getSysUserListApi(params: SysUserParams) {
-  return requestClient.get<SysUserResult>('/api/v1/sys/users', { params });
+  return requestClient.get<SysUserResult>("/api/v1/sys/users", { params });
 }
 
 export async function createSysUserApi(data: SysAddUserParams) {
-  return requestClient.post('/api/v1/sys/users', data);
+  return requestClient.post("/api/v1/sys/users", data);
 }
 
 export async function updateSysUserApi(pk: ID, data: SysUpdateUserParams) {
@@ -106,7 +106,7 @@ export async function updateSysUserApi(pk: ID, data: SysUpdateUserParams) {
 export async function updateSysUserPermissionApi(pk: ID, type: string) {
   return requestClient.put(`/api/v1/sys/users/${pk}/permissions`, undefined, {
     params: { type },
-    paramsSerializer: 'repeat',
+    paramsSerializer: "repeat",
   });
 }
 
